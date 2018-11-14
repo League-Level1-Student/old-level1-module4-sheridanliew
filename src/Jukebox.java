@@ -27,6 +27,7 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 public class Jukebox implements Runnable, MouseListener {
 	JLabel faded;
 	JLabel cannnotStopTheFeeling;
+	Song song;
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Jukebox());
 	}
@@ -35,12 +36,12 @@ public class Jukebox implements Runnable, MouseListener {
 
 		// 3. Find an mp3 on your computer or on the Internet.
 		// 4. Create a Song
-        	   //Song song=new Song("Alan Walker - Faded.mp3");
+        	   song=new Song("Alan Walker - Faded.mp3");
 		// 5. Play the Song
-           //song.play();
+           song.play();
 		/*
 		 * 6. Create a user interface for your Jukebox so that the user can to
-		 * choose which song to play. You can use can use a different button for
+		 * choose which song to play. You can use a different button for
 		 * each song, or a picture of the album cover. When the button or album
 		 * cover is clicked, stop the currently playing song, and play the one
 		 * that was selected.
@@ -48,6 +49,7 @@ public class Jukebox implements Runnable, MouseListener {
            
            JFrame frame= new JFrame();
            frame.setVisible(true);
+           frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
            JPanel panel= new JPanel();
            frame.add(panel);
            faded=loadImage("Alan_Walker_-_Faded.png");
@@ -73,14 +75,15 @@ public class Jukebox implements Runnable, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		song.stop();
 		if (e.getSource()==faded) {
-		    Song song=new Song("Alan Walker - Faded.mp3");
+		    song=new Song("Alan Walker - Faded.mp3");
 			song.play();
-		}
+		}  
 		if (e.getSource()==cannnotStopTheFeeling) {
-		    Song song2=new Song("Justin Timberlake - Can't Stop the Feeling ( Lyrics Video ).mp3");
-			song2.play();
-		}
+		    song=new Song("Justin Timberlake - Can't Stop the Feeling ( Lyrics Video ).mp3");
+			song.play();
+		} 		
 	}
 
 	@Override
