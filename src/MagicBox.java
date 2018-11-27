@@ -14,6 +14,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -29,13 +30,11 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	 * 
 	 * 3. backgroundImage.getRGB(keyEvent.getX(), keyEvent.getY()) will give you the color of the current pixel.
 	 */
-     MediaPalace mediaPalace;
+     MediaPalace mediaPalace= new MediaPalace();
 	 BufferedImage backgroundImage;
 
 	public static void main(String[] args) throws Exception {
 		SwingUtilities.invokeLater(new MagicBox());
-	
-		
 		
 		
 	}
@@ -80,13 +79,21 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 		int intValue=backgroundImage.getRGB(e.getX(), e.getY())*-1;
 		//TYPE_INT_ARGB
 		System.out.println(""+e.getX()+", "+e.getY()+", "+intValue);
-		if (intValue>=1000000) {
-			//fix this:
-			//mediaPalace.playMusicOnComputer();
-		 System.out.println("blue");
+		if (intValue>=3000000) {
+			JLabel l=mediaPalace.loadImageFromWithinProject("Justin_Timberlake_-_Can't_Stop_the_Feeling.png");
+			JFrame f=new JFrame();
+			f.setVisible(true);
+			f.add(l);
+			f.pack();
+			System.out.println("red");
+		}
+		else if (intValue>=1000000&&intValue<3000000) {
+			mediaPalace.playMusicOnComputer("/Users/League/Desktop/Alan Walker - Faded.mp3");
+		    System.out.println("blue");
 		}
 		else {
-			System.out.println("red");
+			mediaPalace.speak("BOO!!! Ha ha, I scared you!");
+	     	System.out.println("white");
 		}
 	}
 
