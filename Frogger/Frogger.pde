@@ -4,9 +4,9 @@ int frogYPosition=350;
 int frogXStartingPoint=frogXPosition;
 int frogYStartingPoint=frogYPosition;
 int radius=10;
-Car car1=new Car(0, 100, 40, 2);
-Car car2=new Car(400, 200, 20, 3);
-Car car3=new Car(0, 300, 60, 1);
+Car car1=new Car(0, 100, 40, 2, true);
+Car car2=new Car(400, 200, 20, 3, false);
+Car car3=new Car(0, 300, 60, 1, true);
 void setup() {
   size(400, 400);
 }
@@ -15,11 +15,11 @@ void draw() {
   fill (0, 0, 0);
   ellipse(frogXPosition, frogYPosition, 20, 20);
   frogInCanvas();
-  car1.moveCarRight();
+  car1.moveCar();
   car1.display();
-  car2.moveCarLeft();
+  car2.moveCar();
   car2.display();
-  car3.moveCarRight();
+  car3.moveCar();
   car3.display();
   if (intersects(car1) || intersects(car2) || intersects(car3)) {
     frogXPosition=frogXStartingPoint;
@@ -73,28 +73,30 @@ class Car {
   int carYPosition;
   int carSize;
   int carSpeed;
-  Car (int carXPosition, int carYPosition, int carSize, int carSpeed) {
+  boolean carRight;
+  Car (int carXPosition, int carYPosition, int carSize, int carSpeed, boolean carRight) {
     this.carXPosition=carXPosition;
     this.carYPosition=carYPosition;
     this.carSize=carSize;
     this.carSpeed=carSpeed;
+    this.carRight=carRight;
   }
   void display() {
     fill(0, 255, 0);
     rect(carXPosition, carYPosition, carSize, 15);
   }
-  void moveCarRight() {
-    carXPosition=carXPosition+carSpeed;
-    if (carXPosition>width-carSize) {
-      carXPosition=width-carSize;
-      //carSpeed=carSpeed*-1;
+  void moveCar(){
+    if (carRight){
+      carXPosition=carXPosition+carSpeed;
+      if (carXPosition>width) {
+      carXPosition=-carSize;
+      }
     }
-  }
-  void moveCarLeft() {
-    carXPosition=carXPosition-carSpeed;
-    if (carXPosition<0) {
-      carXPosition=0;
-      //carSpeed=carSpeed*-1;
+    else {
+      carXPosition=carXPosition-carSpeed;
+      if (carXPosition<-carSize) {
+      carXPosition=width;
+      }
     }
   }
   int getCarXPosition() {
